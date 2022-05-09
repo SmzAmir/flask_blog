@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<!-- Profile Page -->
+<div class="container">
+    <h1>Profile Page</h1>
+    <table class="table table-borderless">
+        <tbody>
+        <tr>
+            <th scope="row"><img src="{{ user.avatar(128) }}"/></th>
+        </tr>
+        <tr>
+            <td>User: {{ user.username }}</td>
+        </tr>
+       <tr>
+            <td>Email: {{ user.email }}</td>
+        </tr>
+        <tr>
+            {% if user.last_seen%}
+            <td><p>Last Seen: {{ user.last_seen }}</p>
+            <p>{{ user.followers.count() }} followers, {{ user.followed.count() }} following.</p>
+            </td>
+            {% endif %}
+        </tr>
+        <tr>
+            {% if user.about_me%}<td><p>About Me: {{ user.about_me }}</p></td>{% endif %}
+        </tr>
+        </tbody>
+    </table>
+
+    {% if user == current_user %}
+        <p>Edit Profile: <a href=" {{ url_for('edit_profile', username=current_user.username) }}"><img src="{{ url_for('static', filename='img/person.svg') }}" alt="Bootstrap" width="32" height="32"></a></p>
+    {% elif not current_user.is_following(user) %}
+        <form action="{{ url_for('follow', username=user.username) }}" method="post">
+            {{ form.hidden_tag() }}
+            {{ form.submit(value='Follow') }}
+        </form>
+    {% else %}
+        <form action="{{ url_for('unfollow', username=user.username) }}" method="post">
+        {{ form.hidden_tag() }}
+        {{ form.submit(value='Unfollow') }}
+        </form>
+    {% endif %}
+</div>
+    <hr>
+    {% if posts %}
+        {% include "_posts.html" %}
+    {% endif %}
+{% endblock %}

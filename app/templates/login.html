@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<script src="{{ url_for('static', filename='js/test.js') }}"></script>
+
+
+<!-- Sign In Page -->
+<h1>Sign In</h1>
+<form action="" method="post">
+    <!-- Hidden Tag -->
+    {{ form.hidden_tag() }}
+
+    <!-- Email/Username Field -->
+    <div class="mb-3">
+        <label>{{ form.username.label }}</label>
+    </div>
+    {{ form.username() }}
+    <!-- Password Errors -->
+    {% if form.username.errors %}
+       {% for error in form.username.errors %}
+            {{ error }}
+        {% endfor %}
+    {% endif %}
+
+    <!-- Password Field -->
+    <div class="mb-3">
+        <label>{{ form.password.label }}</label>
+    </div>
+    {{ form.password() }}
+    <!-- Password Errors -->
+    {% if form.password.errors %}
+        {% for error in form.password.errors %}
+            {{ error }}
+        {% endfor %}
+    {% endif %}
+
+    <!-- Remember Me Field -->
+    <div class="mb-3 form-check">
+        {{ form.remember_me() }}
+        <label>{{ form.remember_me.label }}</label>
+    </div>
+
+    <!-- Submit Field -->
+    {{ form.submit() }}
+
+    <br>
+    <br>
+    <!-- New user -->
+    <div class="mb-3 form-check">
+        <p>New User? Register <a href="{{ url_for('registration') }}">here</a></p>
+    </div>
+
+</form>
+
+{% endblock %}

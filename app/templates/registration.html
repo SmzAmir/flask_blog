@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<!-- Sign In Page -->
+<h1>Registration</h1>
+<form action=" {{ url_for('registration') }}" method="post">
+    <!-- Hidden Tag -->
+    {{ form.hidden_tag() }}
+
+    <!-- Username Field -->
+    <div class="form-group mb-3">
+        <label>{{ form.username.label }}</label>
+
+
+    {{ form.username() }}
+
+    <!-- Username Errors -->
+    {% if form.username.errors %}
+        {% for error in form.username.errors %}
+           {{ error }}
+        {% endfor %}
+    {% endif %}
+    </div>
+
+    <!-- Email Field -->
+    <div class="form-group mb-3">
+        <label>{{ form.email.label }}</label>
+    </div>
+    {{ form.email() }}
+    <!-- Username Errors -->
+    {% if form.email.errors %}
+        {% for error in form.email.errors %}
+            {{ error }}
+        {% endfor %}
+    {% endif %}
+
+    <br>
+
+    <!-- Password Field -->
+    <div class="mb-3">
+        <label>{{ form.password.label }}</label>
+
+    </div>
+    {{ form.password() }}
+
+    <!-- Password Errors -->
+    {% if form.password.errors %}
+        {% for error in form.password.errors %}
+                {{ error }}
+        {% endfor %}
+    {% endif %}
+
+    <br>
+    <!-- Password Field2 -->
+    <div class="mb-3">
+        <label>{{ form.password2.label }}</label>
+        {{ form.password2() }}
+
+    </div>
+
+    <!-- Password Errors -->
+     {% if form.password2.errors %}
+        {% for error in form.password2.errors %}
+                {{ error }}
+        {% endfor %}
+    {% endif %}
+    <br><br>
+    <!-- Submit Field -->
+    <button>{{ form.submit() }}</button>
+
+</form>
+
+{% endblock %}
